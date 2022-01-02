@@ -5,6 +5,7 @@ import styles from '/styles/Home.module.css';
 import faker from 'faker';
 
 type WelcomeProps = {
+  rng: number;
   name: string;
   quoteOfDay: string;
 };
@@ -19,7 +20,9 @@ const Welcome: NextPage<WelcomeProps> = (props) => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome {props.name}</h1>
+        <h1 className={styles.title}>
+          Welcome {props.rng} {props.name}
+        </h1>
 
         <p className={styles.description}>{props.quoteOfDay}</p>
         <Link href='/welcome/sub'>
@@ -31,9 +34,8 @@ const Welcome: NextPage<WelcomeProps> = (props) => {
 };
 
 export const getStaticProps: GetStaticProps<WelcomeProps> = (context) => {
-  //await new Promise((resolve) => setTimeout(resolve, 5000));
-
   const result: WelcomeProps = {
+    rng: faker.datatype.number(100),
     name: `${faker.name.firstName()} ${faker.name.lastName()}`,
     quoteOfDay: faker.lorem.paragraphs(1),
   };
